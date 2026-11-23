@@ -1,0 +1,103 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard - PathPilot{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+
+    <div class="page-heading">
+        <p class="tagline">YOUR PERSONAL SPACE</p>
+        <h1>Welcome, {{ current_user.name }}!</h1>
+        <p>Keep learning and move closer to your career goals.</p>
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>{{ total }}</h3>
+            <p>Total Tasks</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>{{ completed }}</h3>
+            <p>Completed Tasks</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>
+                {% if total > 0 %}
+                    {{ ((completed / total) * 100) | round | int }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </h3>
+            <p>Overall Progress</p>
+        </div>
+
+    </div>
+
+    <div class="dashboard-section">
+
+        <h2>Add a Learning Task</h2>
+
+        <form method="POST" action="{{ url_for('dashboard') }}" class="task-form">
+
+            <input type="text"
+                   name="task"
+                   placeholder="Example: Complete Python basics"
+                   required>
+
+            <button type="submit" class="btn">
+                Add Task
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="dashboard-section">
+
+        <h2>My Learning Tasks</h2>
+
+        {% if progress_items %}
+
+            {% for item in progress_items %}
+
+            <div class="task-item">
+
+                <div class="task-name {% if item.completed %}completed-task{% endif %}">
+                    {{ item.task }}
+                </div>
+
+                <form method="POST"
+                      action="{{ url_for('toggle_progress', item_id=item.id) }}">
+
+                    <button type="submit" class="small-btn">
+                        {% if item.completed %}
+                            Mark Incomplete
+                        {% else %}
+                            Mark Complete
+                        {% endif %}
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-text">
+                No learning tasks added yet. Add your first task and start your journey!
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

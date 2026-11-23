@@ -1,0 +1,191 @@
+
+{% extends "base.html" %}
+
+{% block title %}Student Profile - PathPilot{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+
+    <div class="page-heading">
+        <h1>Discover Your Career Path</h1>
+        <p>Select your education, courses, skills and interests to discover careers that match your profile.</p>
+    </div>
+
+    <div class="form-card profile-container">
+
+        <form method="POST" action="{{ url_for('profile') }}">
+
+            <!-- EDUCATION -->
+            <h2>1. Your Education</h2>
+
+            <label for="education">Current Education</label>
+
+            <select id="education" name="education" required>
+                <option value="">Select your education</option>
+
+                {% for option in [
+                    'Intermediate / 12th',
+                    'Diploma',
+                    'B.Tech / B.E.',
+                    'B.Sc',
+                    'BCA',
+                    'BBA',
+                    'M.Tech / M.E.',
+                    'M.Sc',
+                    'MCA',
+                    'Other'
+                ] %}
+
+                    <option value="{{ option }}"
+                        {% if current_user.education == option %}selected{% endif %}>
+                        {{ option }}
+                    </option>
+
+                {% endfor %}
+            </select>
+
+            <div class="divider"></div>
+
+            <!-- COURSES -->
+            <h2>2. Courses / Subjects</h2>
+
+            <p>Select the subjects you have studied or want to learn.</p>
+
+            {% set courses = [
+                'Programming Fundamentals',
+                'Python Programming',
+                'Java Programming',
+                'C / C++ Programming',
+                'Data Structures and Algorithms',
+                'Database Management Systems',
+                'Web Development',
+                'Artificial Intelligence',
+                'Machine Learning',
+                'Deep Learning',
+                'Data Science',
+                'Data Analytics',
+                'Cloud Computing',
+                'Cyber Security',
+                'Computer Networks',
+                'Software Engineering',
+                'Mathematics and Statistics',
+                'UI / UX Design',
+                'Business Analytics'
+            ] %}
+
+            {% set saved_courses = (current_user.courses or '').split(',') | map('trim') | list %}
+
+            <div class="skills-grid">
+
+                {% for course in courses %}
+
+                    <label class="skill-option">
+                        <input
+                            type="checkbox"
+                            name="courses"
+                            value="{{ course }}"
+                            {% if course in saved_courses %}checked{% endif %}
+                        >
+                        {{ course }}
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SKILLS -->
+            <h2>3. Technical Skills</h2>
+
+            <p>Select the skills you already know.</p>
+
+            {% set all_skills = [
+                'Python', 'Java', 'C++', 'SQL',
+                'Machine Learning', 'Deep Learning',
+                'Data Analysis', 'Data Science',
+                'HTML', 'CSS', 'JavaScript', 'React',
+                'Git', 'GitHub', 'Excel', 'Power BI',
+                'Tableau', 'TensorFlow', 'PyTorch',
+                'Flask', 'Django', 'OOP',
+                'Problem Solving', 'Data Structures',
+                'Algorithms', 'Cloud Computing',
+                'AWS', 'Azure', 'MongoDB',
+                'MySQL', 'PostgreSQL', 'REST API',
+                'Bootstrap'
+            ] %}
+
+            {% set saved_skills = (current_user.skills or '').split(',') | map('trim') | list %}
+
+            <div class="skills-grid">
+
+                {% for skill in all_skills %}
+
+                    <label class="skill-option">
+                        <input
+                            type="checkbox"
+                            name="skills"
+                            value="{{ skill }}"
+                            {% if skill in saved_skills %}checked{% endif %}
+                        >
+                        {{ skill }}
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- CAREER INTERESTS -->
+            <h2>4. Career Areas of Interest</h2>
+
+            <p>Select the career fields you are interested in exploring.</p>
+
+            {% set career_interests = [
+                'Software Development',
+                'Artificial Intelligence',
+                'Machine Learning',
+                'Data and Analytics',
+                'Web Development',
+                'Frontend Development',
+                'Backend Development',
+                'Cloud Computing',
+                'Cyber Security',
+                'Business and Technology'
+            ] %}
+
+            {% set saved_career_interests = (current_user.career_interests or '').split(',') | map('trim') | list %}
+
+            <div class="skills-grid">
+
+                {% for interest in career_interests %}
+
+                    <label class="skill-option">
+                        <input
+                            type="checkbox"
+                            name="career_interests"
+                            value="{{ interest }}"
+                            {% if interest in saved_career_interests %}checked{% endif %}
+                        >
+                        {{ interest }}
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="divider"></div>
+
+            <button type="submit" class="btn btn-primary full-width">
+                Find My Career Path
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

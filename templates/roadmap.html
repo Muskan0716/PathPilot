@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block title %}Learning Roadmap - PathPilot{% endblock %}
+
+{% block content %}
+
+<section class="page-section">
+
+    <div class="page-heading">
+        <p class="tagline">YOUR LEARNING JOURNEY</p>
+        <h1>{{ career }} Roadmap</h1>
+        <p>Follow your personalized learning path, build skills and complete projects to prepare for your career.</p>
+    </div>
+
+    <div class="roadmap-container">
+
+        {% for item in items %}
+
+        <div class="roadmap-item">
+
+            <div class="roadmap-number">
+                {{ loop.index }}
+            </div>
+
+            <div class="roadmap-content">
+
+                <h3>Milestone {{ loop.index }}</h3>
+
+                <p>{{ item }}</p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        <div class="roadmap-footer">
+
+            <a href="{{ url_for('dashboard') }}" class="btn">
+                Track My Progress
+            </a>
+
+            <a href="{{ url_for('careers') }}" class="btn btn-outline">
+                Back to Careers
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

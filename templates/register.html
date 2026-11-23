@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+
+{% block title %}Register - PathPilot{% endblock %}
+
+{% block content %}
+
+<div class="form-container">
+    <h2>Create Your Account</h2>
+    <p class="form-subtitle">Start building your career journey today.</p>
+
+    <form method="POST" action="{{ url_for('register') }}">
+
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"
+               placeholder="Minimum 6 characters" minlength="6" required>
+
+        <button type="submit" class="btn full-width">Create Account</button>
+    </form>
+
+    <p class="form-bottom">
+        Already have an account?
+        <a href="{{ url_for('login') }}">Login here</a>
+    </p>
+</div>
+
+{% endblock %}

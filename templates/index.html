@@ -1,0 +1,76 @@
+
+{% extends "base.html" %}
+
+{% block title %}PathPilot - Career Guidance{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="tagline">YOUR CAREER JOURNEY STARTS HERE</p>
+
+        <h1>Discover Your Future with <span>PathPilot</span></h1>
+
+        <p>
+            Explore careers that match your skills and interests.
+            Build a personalized learning roadmap, discover projects,
+            and track your progress towards your dream career.
+        </p>
+
+        <div class="hero-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}" class="btn">Explore Careers</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline">My Dashboard</a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>How PathPilot Helps You</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+            <div class="feature-icon">👤</div>
+            <h3>Student Profile</h3>
+            <p>Build your profile with your education, skills, interests and career goals.</p>
+        </div>
+
+        <div class="card">
+            <div class="feature-icon">🎯</div>
+            <h3>Career Recommendations</h3>
+            <p>Discover career paths suited to your skills, courses and interests.</p>
+        </div>
+
+        <div class="card">
+            <div class="feature-icon">🗺️</div>
+            <h3>Learning Roadmaps</h3>
+            <p>Follow a personalized step-by-step plan to prepare for your chosen career.</p>
+        </div>
+
+        <div class="card">
+            <div class="feature-icon">📊</div>
+            <h3>Progress Tracker</h3>
+            <p>Track learning tasks, mark completed milestones and measure your progress.</p>
+        </div>
+
+        <div class="card">
+            <div class="feature-icon">💡</div>
+            <h3>Project Suggestions</h3>
+            <p>Practice your skills with beginner, intermediate and advanced projects.</p>
+        </div>
+
+        <div class="card">
+            <div class="feature-icon">🚀</div>
+            <h3>Career Dashboard</h3>
+            <p>View your chosen career, skills, milestones and learning progress in one place.</p>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
